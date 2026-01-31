@@ -32,7 +32,7 @@
     "priority": null,
     "memory-pool": false,
     "yield": true,
-    "max-threads-hint": 40, # change this if you want
+    "max-threads-hint": 40, // change this if you want
     "asm": true,
     "argon2-impl": null,
     "astrobwt-max-size": 550,
